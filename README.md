@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+## Ongoing Project for Le Port Golf Country e-commerce made by Brian Kavinoff
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
