@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
+import CartWidgets from '../../components/CartWidgets/CartWidgets'
 
 // import { green } from '@mui/material/colors';
 // const color = green[500];
@@ -15,9 +16,9 @@ function Navbar(){
                 <li><Button variant="text" color="success">Productos</Button></li>
                 <li><Button variant="text" color="success">Nosotros</Button></li>
                 <li><Button variant="text" color="success">Contacto</Button></li>
+                <li><CartWidgets /></li>
             </ul>
         </header>
-
     )
 }
 
