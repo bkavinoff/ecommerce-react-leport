@@ -10,3 +10,9 @@
     padding: 10px;
     text-align: center;
   }
+
+  .imgProductCard{
+    border: 1px solid #ababab;
+    width: 100%;
+    border-radius: 5px;
+  }

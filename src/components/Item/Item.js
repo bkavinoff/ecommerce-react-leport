@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 //css:
-import './Card.css';
+import './Item.css';
 
 //MUI:
 import Button from '@mui/material/Button';
@@ -10,18 +10,18 @@ import Button from '@mui/material/Button';
 import ItemCount from '../ItemCount/ItemCount';
 
 export default function Card({data}){
-    const {title, size, price} = data;
+    const {title, size, price, stock, image} = data;
 
-    const [count, setCount] = useState(1);//seteo el estado inicial del contador. Se estructura entre corchetes
+    const [count, setCount] = useState(stock);//seteo el estado inicial del contador. Se estructura entre corchetes
     let initial = 0;
-    console.log("estado Contador: " + count);
+    console.log("estado Contador: " + stock);
 
 const addStock = () => {
-    setCount(count + 1);
+    setCount(stock + 1);
 }
 
 const removeStock = () => {
-    (count-1 < 0) ? setCount(0) : setCount(count - 1);
+    (stock-1 < 0) ? setCount(0) : setCount(stock - 1);
 }
 
 const onAdd = (num) => {
@@ -53,6 +53,9 @@ const onAdd = (num) => {
 
     return(
         <div className="card">
+            <div>
+                <img className='imgProductCard' src={`/img/${image}`} alt={image} />
+            </div>
             <h2>{title}</h2>
             <p>Talle: {size}</p>
             <p>Precio: $ {price}</p>
