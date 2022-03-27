@@ -1,8 +1,12 @@
 import * as React from 'react';
+
+//MUI:
 import Button from '@mui/material/Button';
+// import { green } from '@mui/material/colors';
+
+//Componentes:
 import CartWidgets from '../../components/CartWidgets/CartWidgets'
 
-// import { green } from '@mui/material/colors';
 // const color = green[500];
 
 function Navbar(){

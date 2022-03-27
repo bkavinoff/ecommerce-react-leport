@@ -1,0 +1,18 @@
+
+.itemsToCart{
+    border: 1px solid #36e74e;
+    width: 50px;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .btnPlusMinusAddToCart{
+    width: 50px;
+    height: 30px;
+  }
+
+  .containerAddItemToCart{
+    padding: 20px;
+  }
+  
