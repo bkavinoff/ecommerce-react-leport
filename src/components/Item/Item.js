@@ -12,16 +12,16 @@ import ItemCount from '../ItemCount/ItemCount';
 export default function Card({data}){
     const {title, size, price, stock, image} = data;
 
-    const [count, setCount] = useState(stock);//seteo el estado inicial del contador. Se estructura entre corchetes
+    const [newStock, setStock] = useState(stock);//seteo el estado inicial del contador. Se estructura entre corchetes
     let initial = 0;
-    console.log("estado Contador: " + stock);
+    console.log("estado Contador: " + newStock);
 
 const addStock = () => {
-    setCount(stock + 1);
+    setStock(newStock + 1);
 }
 
 const removeStock = () => {
-    (stock-1 < 0) ? setCount(0) : setCount(stock - 1);
+    (newStock-1 < 0) ? setStock(0) : setStock(newStock - 1);
 }
 
 const onAdd = (num) => {
@@ -59,11 +59,11 @@ const onAdd = (num) => {
             <h2>{title}</h2>
             <p>Talle: {size}</p>
             <p>Precio: $ {price}</p>
-            <p>Stock: {count}</p>
+            <p>Stock: {newStock}</p>
             
             <Button onClick={removeStock} size="small" variant="outlined" color="success" >- Stock</Button>
             <Button onClick={addStock} size="small" variant="outlined" color="success" >+ Stock</Button>
-            <ItemCount stock={count} initial={initial} onAdd={onAdd}/>
+            <ItemCount stock={newStock} initial={initial} onAdd={onAdd}/>
         </div>
     )
 }
