@@ -14,7 +14,7 @@ export default function Card({data}){
 
     const [newStock, setStock] = useState(stock);//seteo el estado inicial del contador. Se estructura entre corchetes
     let initial = 0;
-    console.log("estado Contador: " + newStock);
+    //console.log("estado Contador: " + newStock);
 
 const addStock = () => {
     setStock(newStock + 1);
