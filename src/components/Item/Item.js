@@ -7,6 +7,8 @@ import './Item.css';
 
 //MUI:
 import Button from '@mui/material/Button';
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 //Componentes:
 import ItemCount from '../ItemCount/ItemCount';
@@ -56,16 +58,18 @@ const onAdd = (num) => {
     return(
         <div className="card">
             <div>
-            <Link className='btnNavbar' to={`/product/${id}`}><img className='imgProductCard' src={`/img/${image}`} alt={image} /></Link>
+                <Link className='btnNavbar' to={`/product/${id}`}><img className='imgProductCard' src={`/img/${image}`} alt={image} /></Link>
             </div>
             <h2>{title}</h2>
             <p>Talle: {size}</p>
             <p>Precio: $ {price}</p>
             <p>Stock: {newStock}</p>
-            
-            <Button onClick={removeStock} size="small" variant="outlined" color="success" >- Stock</Button>
-            <Button onClick={addStock} size="small" variant="outlined" color="success" >+ Stock</Button>
+            <div className="containerAddStock">
+                <Button onClick={removeStock} size="small" variant="outlined" color="success" ><RemoveIcon/> Stock</Button>
+                <Button onClick={addStock} size="small" variant="outlined" color="success" ><AddIcon size="small"/> Stock</Button>
+            </div>
             <ItemCount stock={newStock} initial={initial} onAdd={onAdd}/>
+            
         </div>
     )
 }

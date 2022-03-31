@@ -9,8 +9,6 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Badge from "@mui/material/Badge";
 
 
 
@@ -32,22 +30,12 @@ export default function ItemCount({stock, initial, onAdd}) {
 
     return (
       <div className="containerAddItemToCart">
-          <ButtonGroup>
-
-            <Button className="btnPlusMinusAddToCart" onClick={minusItemCount} size="small" variant="outlined" color="success" >
-                <RemoveIcon fontSize="small" />
-            </Button>
-
-            <Badge color="success" badgeContent={itemCount}>
-                <ShoppingCartIcon color="success"/>{" "}
-            </Badge>
-
-            <Button className="btnPlusMinusAddToCart" onClick={addItemCount} size="small" variant="outlined" color="success" >
-              <AddIcon fontSize="small" />
-            </Button>
-            
-          </ButtonGroup>
-          <Button id="addToCart" onClick={addToCart} size="small" variant="outlined" color="success" startIcon={<AddShoppingCartIcon />}>Agregar</Button>
+            <ButtonGroup className="btnGroupAddRemove" variant="text" aria-label="text button group" color="success" size="small">
+                <Button onClick={minusItemCount} color="success"><RemoveIcon/></Button>
+                <Button size="large" className="itemCount" color="success">{itemCount}</Button>
+                <Button onClick={addItemCount} color="success" size="small"><AddIcon/></Button>
+            </ButtonGroup>
+          <Button id="addToCart" className="addToCart" onClick={addToCart} size="small" variant="outlined" color="success" startIcon={<AddShoppingCartIcon />}>Agregar</Button>
     </div>
     )
 }

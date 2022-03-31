@@ -17,3 +17,13 @@
     width: 100%;
     border-radius: 5px;
   }
+
+  .containerAddStock{
+    padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    /* width:max-content; */
+    margin: 10px;
+    display:block;
+    align-items: center;
+  }
