@@ -1,0 +1,50 @@
+.btnBack404{
+    text-decoration: none;
+}
+
+.notfound-container {
+    height: 100vh;
+}
+
+.notfound-container .notfound {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+
+.notfound-container .notfound .notfound-404 {
+    display: flex;
+    align-content: center;
+}
+
+.notfound-container .notfound .notfound-404 h1 {
+    animation: bounceIn 1s;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 900;
+    font-size: 150px;
+    margin: 0;
+    background: url("./404-bg.webp") no-repeat;
+    background-clip: text;
+    background-size: cover;
+    background-position: center;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.notfound-container .notfound h2 {
+    animation: flipInX 2s;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    margin: 0.5em auto;
+  }
+  .notfound-container .notfound p {
+    font-family: "roboto-medium", sans-serif;
+    color: #333;
+    font-size: 1em;
+    font-weight: 6;
+    margin: 1em auto;
+  }

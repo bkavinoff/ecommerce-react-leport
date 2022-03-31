@@ -1,4 +1,6 @@
-import React, {useState, useEffect} from 'react';
+//import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom'
 
 //css:
 import './Item.css';
@@ -10,7 +12,7 @@ import Button from '@mui/material/Button';
 import ItemCount from '../ItemCount/ItemCount';
 
 export default function Card({data}){
-    const {title, size, price, stock, image} = data;
+    const {id, title, size, price, stock, image, categoryId} = data;
 
     const [newStock, setStock] = useState(stock);//seteo el estado inicial del contador. Se estructura entre corchetes
     let initial = 0;
@@ -54,7 +56,7 @@ const onAdd = (num) => {
     return(
         <div className="card">
             <div>
-                <img className='imgProductCard' src={`/img/${image}`} alt={image} />
+            <Link className='btnNavbar' to={`/product/${id}`}><img className='imgProductCard' src={`/img/${image}`} alt={image} /></Link>
             </div>
             <h2>{title}</h2>
             <p>Talle: {size}</p>

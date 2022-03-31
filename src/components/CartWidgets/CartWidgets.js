@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Link} from 'react-router-dom'
 
 //MUI:
 import IconButton from '@mui/material/IconButton';
@@ -11,9 +12,11 @@ export default function IconButtons() {
     
   return (
     <Stack direction="row" spacing={1}>
-      <IconButton color="success" aria-label="Agregar al Carrito">
-        <ShoppingCartIcon />
-      </IconButton>
+      <Link className='btnNavbar' to='/Checkout'>
+        <IconButton color="success" aria-label="Agregar al Carrito">
+          <ShoppingCartIcon />
+        </IconButton>
+      </Link>
     </Stack>
   );
 }

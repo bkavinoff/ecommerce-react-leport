@@ -1,37 +1,38 @@
 import React, {useEffect, useState} from 'react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 //css:
 import './App.css';
 
 //Componentes:
 import Navbar from './components/Navbar/Navbar'
-import ItemList from './components/ItemList/ItemList'
-import ItemDetailContainer from './components/ItemDetail/ItemDetailContainer'
-
-//services:
-import {getUsers} from '../src/components/services/users.service'
-
+import HomePage from './components/Pages/Home';
+import ProductDetail from './components/Pages/ProductDetail';
+import ContactPage from './components/Pages/Contact';
+import NotFoundPage from './components/Pages/NotFound';
+import AboutUsPage from './components/Pages/AboutUs';
+import CheckoutPage from './components/Pages/Checkout';
+import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 
 function App() {
-//const [users, setUsers] = useState([]);
-
-//   useEffect( () => {
-//     //console.log("Users: " + getUsers());
-//     setUsers(getUsers());
-//  }, [])//se ejecuta una sola vez cuando se genera el componente
- 
   return (
     <div className="App">
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          
+          <Route path='/product/:id' element={<ProductDetail/>} />
+          <Route path='/contact' element={<ContactPage/>} />
+          <Route path='/about' element={<AboutUsPage/>} />
+          <Route path='/checkout' element={<CheckoutPage/>} />
+          <Route path='/category/:categoryId' element={<ItemListContainer/>} />
+          <Route path='/' element={<HomePage/>} />  
+          <Route path='*' element={<NotFoundPage/>} />  
+          
+        </Routes>
+      </BrowserRouter>
 
-      {/* <div>{users.map( (user) => (
-        <div key = {user.id}>{user.name}</div>
-        ) )}
-      </div> */}
 
-      <Navbar />
-      <ItemDetailContainer id="0"/>
-      <ItemList />
-      
     </div>
   );
 }
