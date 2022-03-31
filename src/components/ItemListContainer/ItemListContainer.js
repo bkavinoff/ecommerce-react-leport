@@ -75,7 +75,7 @@ const ListProducts = () => {
         })
 
         getCategories()
-    },[])
+    })
 
     return(
         <div className="container-cards">
