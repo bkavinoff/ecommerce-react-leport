@@ -4,6 +4,9 @@ import {useParams} from 'react-router-dom'
 //css:
 import './ItemListContainer.css';
 
+//MUI:
+import Container from '@mui/material/Container'
+
 //Componentes:
 import Item from '../Item/Item'
 import CategoryTitle from '../CategoryTitle/CategoryTitle'
@@ -89,15 +92,19 @@ const ListProducts = () => {
     }
 
     return(
-        <div className="container-cards">
-            <CategoryTitle category = {category} />
-            {products.map( (product) => {
-                    return(
-                        <Item key={product.id} data={product} />
-                   )
-                }
-            )}
-        </div>
+        <Container>
+            <div className="container-cards">
+                <CategoryTitle category = {category} />
+                <div className='productContainer'>
+                    {products.map( (product) => {
+                            return(
+                                <Item className="itemCard" key={product.id} data={product} />
+                        )
+                        }
+                    )}
+                </div>
+            </div>
+        </Container>
     )
 }
 

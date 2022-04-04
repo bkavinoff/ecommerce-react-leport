@@ -1,3 +1,13 @@
 .container-cards{
     display:block;
+    text-align: center;
+}
+
+.productContainer{
+    display:block;
+    align-items: space-around;
+}
+
+.itemCard{
+    display:flex;
 }
