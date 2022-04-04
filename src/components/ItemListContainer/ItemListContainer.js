@@ -70,17 +70,26 @@ const ListProducts = () => {
     //esto se ejecuta después que se renderiza
     useEffect(  ()=>{
         
+        getProductsAndCategories();
+
+    },[])
+
+    useEffect(  ()=>{
+        getProductsAndCategories();
+        
+    },[products])
+
+    const getProductsAndCategories = ()=>{
         getProducts()
         .then( (data) =>{
             setProducts(data)
         })
 
         getCategories()
-    },[])
+    }
 
     return(
         <div className="container-cards">
-            {/* <h2>{category.name}</h2> */}
             <CategoryTitle category = {category} />
             {products.map( (product) => {
                     return(
