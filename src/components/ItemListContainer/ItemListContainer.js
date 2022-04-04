@@ -6,6 +6,7 @@ import './ItemListContainer.css';
 
 //Componentes:
 import Item from '../Item/Item'
+import CategoryTitle from '../CategoryTitle/CategoryTitle'
 import mockProductos from '../Data/Data'
 import mockCategories from '../Data/Categories'
 
@@ -23,7 +24,7 @@ const ListProducts = () => {
 
             setTimeout( () => {
                 resolve(filterProductByCategoryId(mockProductos, catId))
-            },2000)
+            },1000)
         })
     }
 
@@ -75,11 +76,12 @@ const ListProducts = () => {
         })
 
         getCategories()
-    })
+    },[])
 
     return(
         <div className="container-cards">
-            <h2>{category.name}</h2>
+            {/* <h2>{category.name}</h2> */}
+            <CategoryTitle category = {category} />
             {products.map( (product) => {
                     return(
                         <Item key={product.id} data={product} />
