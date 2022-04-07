@@ -27,9 +27,11 @@ export default function ItemCount({stock, initial, onAdd}) {
     const addToCart = () => {
         onAdd(itemCount);
     }
-
+    const handleClick = (e) =>{
+        e.stopPropagation()
+    }
     return (
-      <div className="containerAddItemToCart">
+      <div className="containerAddItemToCart"  onClick={handleClick} >
             <ButtonGroup className="btnGroupAddRemove" variant="text" aria-label="text button group" color="success" size="small">
                 <Button onClick={minusItemCount} color="success"><RemoveIcon/></Button>
                 <Button size="large" className="itemCount" color="success">{itemCount}</Button>
