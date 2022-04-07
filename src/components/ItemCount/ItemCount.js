@@ -12,8 +12,8 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
 
-export default function ItemCount({stock, initial, onAdd}) {
-    const [itemCount, setItemCount] = useState(initial);
+export default function ItemCount({stock, onAdd}) {
+    const [itemCount, setItemCount] = useState(0);
 
     const minusItemCount = () => {
         (itemCount-1 < 0) ? setItemCount(0) : setItemCount(itemCount - 1);
@@ -24,7 +24,8 @@ export default function ItemCount({stock, initial, onAdd}) {
             setItemCount(itemCount + 1);
         }
     }
-    const addToCart = () => {
+    const addToCart = (e) => {
+        e.stopPropagation()
         onAdd(itemCount);
     }
     const handleClick = (e) =>{

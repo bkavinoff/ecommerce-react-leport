@@ -19,6 +19,7 @@ const ListProducts = () => {
     
     const [products, setProducts] = useState([])//seteo el valor inicial del state
     const [category, setCategory] = useState({})
+    
     const catId = categoryId;
 
     //products
@@ -95,10 +96,11 @@ const ListProducts = () => {
         <Container>
             <div className="container-cards">
                 <CategoryTitle category = {category} />
+                
                 <div className='productContainer'>
                     {products.map( (product) => {
                             return(
-                                <Item className="itemCard" key={product.id} data={product} />
+                                <Item className="itemCard" key={product.id} data={product}/>
                         )
                         }
                     )}

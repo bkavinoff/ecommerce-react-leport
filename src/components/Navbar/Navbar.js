@@ -22,7 +22,6 @@ function Navbar(){
             <ul className='navbar'>
                 <li><Link className='btnNavbar' to='/'><Button variant="text" color="success">Home</Button></Link></li>
                 <li>
-                    {/* <Button variant="text" color="success">Categorías</Button> */}
                     <MenuCategoriasNavbar />
                 </li>
                 <li><Link className='btnNavbar' to='/about'><Button variant="text" color="success">Nosotros</Button></Link></li>

@@ -12,7 +12,7 @@ export default function IconButtons() {
     
   return (
     <Stack direction="row" spacing={1}>
-      <Link className='btnNavbar' to='/Checkout'>
+      <Link className='btnNavbar' to='/cart'>
         <IconButton color="success" aria-label="Agregar al Carrito">
           <ShoppingCartIcon />
         </IconButton>

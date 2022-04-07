@@ -11,7 +11,7 @@ import ProductDetail from './components/Pages/ProductDetail';
 import ContactPage from './components/Pages/Contact';
 import NotFoundPage from './components/Pages/NotFound';
 import AboutUsPage from './components/Pages/AboutUs';
-import CheckoutPage from './components/Pages/Checkout';
+import CartPage from './components/Pages/Cart';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
           <Route path='/product/:id' element={<ProductDetail/>} />
           <Route path='/contact' element={<ContactPage/>} />
           <Route path='/about' element={<AboutUsPage/>} />
-          <Route path='/checkout' element={<CheckoutPage/>} />
+          <Route path='/cart' element={<CartPage/>} />
           <Route path='/category/:categoryId' element={<ItemListContainer/>} />
           <Route path='/' element={<HomePage/>} />  
           <Route path='*' element={<NotFoundPage/>} />  

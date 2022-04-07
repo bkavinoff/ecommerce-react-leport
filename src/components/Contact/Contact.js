@@ -35,15 +35,6 @@ const ContactUs = ()=>{
         },
       ];
 
-      const getEmptyContactObj = () => {
-          return ({
-            contactUsername:'',
-            contactEmail:'',
-            contactMotive:'ReportIssue',
-            contactMessage:''
-          })
-      }
-
       const [contactValue, setcontactValue] = useState(
         {
           contactUsername:'',
