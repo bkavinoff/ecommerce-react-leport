@@ -1,9 +1,50 @@
 .btnNavbar{
     text-decoration:none;
-    color: #1b5e20;
+    color: #1a641a;
+}
+
+.linkNavbar{
+    color: #ffffff !important;
 }
 
 .img-header{
     border-radius: 5px;
     box-shadow: 1px 1px 5px #0000002b;
 }
+
+.container-logo img{
+    width: 100%;
+  }
+  
+  img.img-header{
+    border: 1px solid lightgray;
+    width: 200px;
+    background-color: #2b882e;
+    
+  }
+  
+  header.main-header{
+    width: 100%;
+    display: flex;
+    padding: 10px 25px;
+    box-shadow: 1px 5px 15px #0000000d;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: rgb(2, 31, 6);
+  }
+  
+  ul.navbar li{
+    margin-right: 15px;
+    color:#ffffff;
+  }
+  
+  ul.navbar{
+    list-style: none;
+    display: flex;
+  }
+  
+  .container-logo{
+    width: 80px;
+  }
+

@@ -11,12 +11,11 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 export default function IconButtons() {
     
   return (
-    <Stack direction="row" spacing={1}>
+    
       <Link className='btnNavbar' to='/cart'>
-        <IconButton color="success" aria-label="Agregar al Carrito">
+        <IconButton className="linkNavbar" aria-label="Agregar al Carrito">
           <ShoppingCartIcon />
         </IconButton>
       </Link>
-    </Stack>
   );
 }

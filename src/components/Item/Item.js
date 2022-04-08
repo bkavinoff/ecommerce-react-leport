@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useNavigate} from 'react-router-dom'
 
 //css:
@@ -8,9 +8,14 @@ import './Item.css';
 import Button from "@mui/material/Button";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { styled } from '@mui/material/styles';
+import { green } from '@mui/material/colors';
+
 //Componentes:
+import ThemeContext from '../../context/ThemeContext'
 
 export default function Card({data}){
+    const {lightTheme} = useContext(ThemeContext)
     const {id, title, size, price, stock, image, categoryId} = data;
     const navigate = useNavigate();
    
@@ -47,6 +52,33 @@ export default function Card({data}){
     //     e.stopPropagation()
     // }
 
+    const getLightColorButton = (theme) => {
+        return ({
+            color: theme.palette.getContrastText(green[100]),
+            backgroundColor: green[100],
+            '&:hover': {
+              backgroundColor: green[200],
+            },
+            borderColor: green[400]
+        })
+    }
+
+    const getDarkColorButton = (theme) => {
+        return ({
+            color: theme.palette.getContrastText(green[700]),
+            backgroundColor: green[700],
+            '&:hover': {
+              backgroundColor: green[500],
+            },
+            borderColor: green[900]
+        })
+    }
+
+    const ColorButton = styled(Button)(({ theme }) => (
+        (lightTheme)?getLightColorButton(theme):getDarkColorButton(theme)
+        
+    ));
+
     return(
         <div className="card" onClick={changePage}>
                 <div>
@@ -60,7 +92,7 @@ export default function Card({data}){
                     <Button onClick={removeStock} size="small" variant="outlined" color="success" ><RemoveIcon/> Stock</Button>
                     <Button onClick={addStock} size="small" variant="outlined" color="success" ><AddIcon size="small"/> Stock</Button>
                 </div> */}
-                <Button variant="outlined" color="success" >Ver Detalles</Button>
+                <ColorButton variant="outlined" >Ver Detalles</ColorButton>
         </div>
     )
 }

@@ -27,3 +27,15 @@
     display:block;
     align-items: center;
   }
+
+  /*Dark Mode*/
+  Button.btnViewCard{
+    color:rgb(2, 31, 6);
+    background-color: rgb(255, 255, 255);
+  }
+
+  /*Light Mode*/
+  Button.btnViewCard.lightMode {
+    color:rgb(255, 255, 255) !important;
+    background-color: rgb(2, 31, 6) !important;
+  }

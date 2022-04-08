@@ -51,6 +51,7 @@ const MenuCategoriasNavbar = () => {
         onClick={handleClick}
         variant="text" 
         color="success"
+        className="linkNavbar"
       >
         Categorías
       </Button>
