@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {Link} from 'react-router-dom'
 
 //css:
@@ -16,14 +16,17 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 //componentes:
 import ItemCount from '../ItemCount/ItemCount';
 
-const ItemDetail = ({product}, initial) => {
-    const {image, title, size, price, stock} = product;
-    const [contador,setContador] = useState(0)
-    
+//context:
+import CartContext from '../../context/CartContext';
 
-    const onAdd=(num)=>{
-        setContador(contador + num)
-        //alert("Se han agregado " + num + " items al carrito.");
+const ItemDetail = ({product}, initial) => {
+    const {image, title, size, price, stock, id} = product;
+    const [count, setCount] = useState(0)
+    const {cart, addProductToCart} = useContext(CartContext) //se debe aclarar que contexto se usa
+
+    const onAdd = (qty)=>{
+        setCount(count + qty)
+        addProductToCart(product, qty)
     }
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -36,9 +39,6 @@ const ItemDetail = ({product}, initial) => {
 
     return(
         <Container>
-            <div>
-                <h1>Productos en Carrito: {contador}</h1>
-            </div>
             <div className="containerProductDetail">
                 <Box sx={{ flexGrow: 2 }}>
                     <Grid container spacing={2}>
@@ -56,7 +56,7 @@ const ItemDetail = ({product}, initial) => {
                                         <p>Stock: {stock} unidades</p>
                                     </div>
                                     
-                                    <ItemCount stock={stock} initial={initial} onAdd={onAdd}/>
+                                    <ItemCount product={product} stock={stock} initial={initial} onAdd={onAdd}/>
                                 </Item>
                                 <Item>
                                     <Link className='btnNavbar' to='/cart'>

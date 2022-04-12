@@ -1,4 +1,4 @@
-import {useState, useContext} from 'react';
+import {useContext} from 'react';
 import {Link} from 'react-router-dom'
 
 //MUI:
@@ -18,7 +18,6 @@ import ThemeSwitch from '../Navbar/ThemeSwitch'
 function Navbar(){
     const {lightTheme} = useContext(ThemeContext)
 
-    console.log("lightTheme: ", lightTheme)
     return(
         <header className={`main-header ${lightTheme ? ' lightMode ':''}`}>
             <div className='container-logo'>

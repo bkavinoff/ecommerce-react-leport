@@ -6,8 +6,6 @@ import './Item.css';
 
 //MUI:
 import Button from "@mui/material/Button";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import { styled } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
 
@@ -18,21 +16,13 @@ export default function Card({data}){
     const {lightTheme} = useContext(ThemeContext)
     const {id, title, size, price, stock, image, categoryId} = data;
     const navigate = useNavigate();
-   
-    let initial = 0;
     
     //esto se ejecutaría cada vez que se comienza el ciclo de montaje
     useEffect( () => {
         window.addEventListener("scroll",onScrollWindow)
     },[]);
-    const [newStock, setStock] = useState(stock)
-    // const addStock = () => {
-    //     setStock(newStock + 1);
-    // }
 
-    // const removeStock = () => {
-    //     (newStock-1 < 0) ? setStock(0) : setStock(newStock - 1); data.stock=newStock;
-    // }
+    const [newStock] = useState(stock)
 
     const onScrollWindow = () => {
         if (window.scrollY > 100){
@@ -47,10 +37,6 @@ export default function Card({data}){
     const changePage = ()=>{
         navigate(`/product/${id}`)
     }
-    
-    // const handleClick = (e)=>{
-    //     e.stopPropagation()
-    // }
 
     const getLightColorButton = (theme) => {
         return ({
@@ -76,7 +62,6 @@ export default function Card({data}){
 
     const ColorButton = styled(Button)(({ theme }) => (
         (lightTheme)?getLightColorButton(theme):getDarkColorButton(theme)
-        
     ));
 
     return(
@@ -88,10 +73,6 @@ export default function Card({data}){
                 <p>Talle: {size}</p>
                 <p>Precio: $ {price}</p>
                 <p>Stock: {newStock}</p>
-                {/* <div className="containerAddStock" onClick={handleClick}>
-                    <Button onClick={removeStock} size="small" variant="outlined" color="success" ><RemoveIcon/> Stock</Button>
-                    <Button onClick={addStock} size="small" variant="outlined" color="success" ><AddIcon size="small"/> Stock</Button>
-                </div> */}
                 <ColorButton variant="outlined" >Ver Detalles</ColorButton>
         </div>
     )

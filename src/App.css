@@ -1,5 +1,3 @@
-
-
   /* Lightmode styles */
   header.main-header.lightMode{
     background:white;
@@ -7,14 +5,6 @@
   }
   header.main-header.lightMode ul.navbar *{
     color:black !important;
-  }  
-
-/* .container-cards.light-mode .card-item *{
-  color:white;
-}
-
-.container-cards.light-mode .card-item {
-  background:black;
-} */
+  }
 
 

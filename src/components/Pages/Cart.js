@@ -1,11 +1,14 @@
-import Container from '@mui/material/Container'
+import React from 'react'
+
+//componentes:
+import Cart from '../Cart/Cart'
+
+
 
 const CheckoutPage = () => {
+  
     return (
-      <Container>
-        <h1>Carrito</h1>
-      </Container>
-       
+        <Cart/>
     )
 }
 
