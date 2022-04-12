@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {useNavigate} from 'react-router-dom'
 
 //css:
@@ -9,30 +9,15 @@ import Button from "@mui/material/Button";
 import { styled } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
 
-//Componentes:
+//Context:
 import ThemeContext from '../../context/ThemeContext'
 
 export default function Card({data}){
     const {lightTheme} = useContext(ThemeContext)
     const {id, title, size, price, stock, image, categoryId} = data;
     const navigate = useNavigate();
-    
-    //esto se ejecutaría cada vez que se comienza el ciclo de montaje
-    useEffect( () => {
-        window.addEventListener("scroll",onScrollWindow)
-    },[]);
 
     const [newStock] = useState(stock)
-
-    const onScrollWindow = () => {
-        if (window.scrollY > 100){
-            console.log("Scroll mayor a 100")
-        }
-
-        return() => {
-            window.removeEventListener("scroll",onScrollWindow)
-        }
-    }
 
     const changePage = ()=>{
         navigate(`/product/${id}`)

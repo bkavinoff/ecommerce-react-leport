@@ -21,11 +21,9 @@ import CartContext from '../../context/CartContext';
 
 const ItemDetail = ({product}, initial) => {
     const {image, title, size, price, stock, id} = product;
-    const [count, setCount] = useState(0)
-    const {cart, addProductToCart} = useContext(CartContext) //se debe aclarar que contexto se usa
+    const {addProductToCart} = useContext(CartContext) //se debe aclarar que contexto se usa
 
     const onAdd = (qty)=>{
-        setCount(count + qty)
         addProductToCart(product, qty)
     }
 
@@ -36,6 +34,10 @@ const ItemDetail = ({product}, initial) => {
         textAlign: 'center',
         color: theme.palette.text.secondary,
       }));
+    
+    //   const handleAddToCartClick = (e) => {
+    //     e.preventDefault()
+    //   }
 
     return(
         <Container>

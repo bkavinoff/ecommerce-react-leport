@@ -26,6 +26,7 @@ export default function ItemCount({stock, onAdd}) {
     }
     const addToCart = (e) => {
         e.stopPropagation()
+        e.preventDefault()
         onAdd(itemCount);
     }
     const handleClick = (e) =>{
