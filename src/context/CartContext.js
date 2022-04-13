@@ -48,12 +48,23 @@ const CartProvider = ({children}) => {
         return cart.some( prod => prod.id === id)
     }
 
+    const calculateTotalPrice = ()=>{
+        console.log("Entro en suma total")
+        let total = 0
+
+        cart.map( (product)=> {
+            total = total + (product.price * product.qty)
+        })
+        return total
+    }
+
     const data = {
         cart,
         addProductToCart,
         removeItemFromCart,
         clearCart,
-        isInCart
+        isInCart,
+        calculateTotalPrice
     }
 
     return (

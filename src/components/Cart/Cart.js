@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 //MUI:
 import { MenuItem } from '@mui/material'
@@ -17,7 +18,7 @@ import ThemeContext from '../../context/ThemeContext'
 
 const Cart = () => {
     const {lightTheme} = useContext(ThemeContext)
-    const {cart, removeItemFromCart, clearCart} = useContext(CartContext)
+    const {cart, removeItemFromCart, clearCart, calculateTotalPrice} = useContext(CartContext)
 
     const handleItemClick = (e) =>{
         e.preventDefault()
@@ -62,34 +63,50 @@ const Cart = () => {
     const ColorButton = styled(Button)(({ theme }) => (
         (lightTheme)?getLightColorButton(theme):getDarkColorButton(theme)
     ));
+    const navigate = useNavigate();
 
+    const changePage = ()=>{
+        navigate(`/`)
+    }
       return (
         <Container>
             <h1>Carrito</h1>
+            
             {(cart.length > 0)?
-            cart.map( (product)=>{
-                return (
-                    <MenuItem key={product.id} onClick={handleItemClick}>
-                        <div>
-                            <img className="cartProductImage" src={`./img/${product.image}`} alt={product.image} />
-                        </div>
-                        <div>
-                            <p>{product.title}</p>
-                            <span>Valor Unitario: ${product.price}</span>
-                            <p>Cantidad: {product.qty}</p>
-                        </div>
-                        <div>
-                            <DeleteIcon id={product.id} onClick={handleDeleteClick(product.id)}/>
-                        </div>
-                    </MenuItem>
-                )
-            }) 
+            (
+                <div>
+                {cart.map( (product)=>{
+                    return (
+                        <MenuItem key={product.id} onClick={handleItemClick}>
+                            <div>
+                                <img className="cartProductImage" src={`./img/${product.image}`} alt={product.image} />
+                            </div>
+                            <div>
+                                <p>{product.title}</p>
+                                <span>Valor Unitario: ${product.price}</span>
+                                <p>Cantidad: {product.qty}</p>
+                                <p>Subtotal: {(product.qty * product.price)}</p>
+                            </div>
+                            <div>
+                                <DeleteIcon id={product.id} onClick={handleDeleteClick(product.id)}/>
+                            </div>
+                        </MenuItem>
+                    )
+                })}
+                    <p>Total: ${calculateTotalPrice()}</p>
+                    <ColorButton onClick={handleEmptyCart} variant="outlined" >Vaciar carrito</ColorButton>
+                </div>
+            ) 
             :
             <div>
                 No hay items en el carrito
             </div>
             }
-            <ColorButton onClick={handleEmptyCart} variant="outlined" >Vaciar carrito</ColorButton>
+
+            <div>
+                <ColorButton onClick={changePage} variant="outlined" >Seguir Comprando</ColorButton>
+            </div>
+            
         </Container>
       )
   }

@@ -31,7 +31,8 @@ export default function IconButtons() {
 
 
   return (
-    
+    (cart.length>0) &&  
+      //solo se renderiza si hay items en el cart
       <Link className='btnNavbar' to='/cart'>
         <IconButton className="linkNavbar" aria-label="Agregar al Carrito">
           {lightTheme ? 

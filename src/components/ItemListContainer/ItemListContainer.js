@@ -6,6 +6,7 @@ import './ItemListContainer.css';
 
 //MUI:
 import Container from '@mui/material/Container'
+import LinearProgress from '@mui/material/LinearProgress';
 
 //Componentes:
 import Item from '../Item/Item'
@@ -19,6 +20,7 @@ const ListProducts = () => {
     
     const [products, setProducts] = useState([])//seteo el valor inicial del state
     const [category, setCategory] = useState({})
+    const [loading , setLoading] = useState(true)
     
     const catId = categoryId;
 
@@ -28,7 +30,7 @@ const ListProducts = () => {
 
             setTimeout( () => {
                 resolve(filterProductByCategoryId(mockProductos, catId))
-            },1000)
+            },2000)
         })
     }
 
@@ -86,6 +88,7 @@ const ListProducts = () => {
     const getProductsAndCategories = ()=>{
         getProducts()
         .then( (data) =>{
+            setLoading(false)
             setProducts(data)
         })
 
@@ -95,16 +98,29 @@ const ListProducts = () => {
     return(
         <Container>
             <div className="container-cards">
-                <CategoryTitle category = {category} />
+               
                 
-                <div className='productContainer'>
-                    {products.map( (product) => {
+                {loading?
+                    (
+                        <div>
+                            <h2>Cargando...</h2>
+                            <LinearProgress color="success" />
+                        </div>
+                    )
+                    :
+                    (<div>
+                        <CategoryTitle category = {category} />
+                        <div className='productContainer'>
+                        {products.map( (product) => {
                             return(
                                 <Item className="itemCard" key={product.id} data={product}/>
-                        )
+                            )
                         }
-                    )}
-                </div>
+                        )}
+                    </div>
+                </div>)
+                }
+                
             </div>
         </Container>
     )
