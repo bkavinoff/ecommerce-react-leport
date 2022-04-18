@@ -1,13 +1,17 @@
 //import { ProductionQuantityLimits } from '@mui/icons-material';
 import React, {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
-
+import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 //MUI
 import LinearProgress from '@mui/material/LinearProgress';
 
 //componentes:
 import mockProductos from '../Data/Data'
 import ItemDetail from './ItemDetail'
+
+//firebase:
+import { doc, getDoc } from 'firebase/firestore'
+import db from '../../firebase'
 
 const ItemDetailContainer = () => { 
     const [loading , setLoading] = useState(true)
@@ -16,29 +20,27 @@ const ItemDetailContainer = () => {
 
     const [product, setProductDetail] = useState({}); //seteo el useState con un obj vacío
 
-    const getProductDetail = (idProd)=>{
-        return new Promise ( (resolve,reject)=>{
-            resolve (
-                filterProductById(mockProductos,id)
-            ) 
-            })
-    }
+    const navigate = useNavigate()
 
-    const filterProductById = (array, id) => {
-        return array.map( (prod) => {
-            setLoading(false)
-            if (prod.id == id) {
-                return setProductDetail(prod); //guardo el objeto en el useState
-            }
-        })
+    const getProduct = async() =>{
+        const docRef = doc(db,"products", id)
+        const docSnap = await getDoc(docRef)
+
+        if (!docSnap.exists()){
+            console.log("No existe el documento con id: ", id)
+            navigate('error')
+        }
         
+        return docSnap.data()
     }
 
     //esto se ejecuta una sola vez
     useEffect(  ()=>{
-        setTimeout( () => {
-            return getProductDetail(id) //hago la llamada al promise enviandole el id del producto para obtener el obj
-        },1000)
+        getProduct()
+        .then( (data) =>{
+            setLoading(false)
+            setProductDetail(data)
+        })
     }, [])
 
     return(

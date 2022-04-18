@@ -11,8 +11,12 @@ import LinearProgress from '@mui/material/LinearProgress';
 //Componentes:
 import Item from '../Item/Item'
 import CategoryTitle from '../CategoryTitle/CategoryTitle'
-import mockProductos from '../Data/Data'
-import mockCategories from '../Data/Categories'
+//import mockProductos from '../Data/Data'
+
+//firebase:
+import db from '../../firebase'
+import { collection, getDocs} from 'firebase/firestore'
+
 
 const ListProducts = () => {
 
@@ -22,55 +26,48 @@ const ListProducts = () => {
     const [category, setCategory] = useState({})
     const [loading , setLoading] = useState(true)
     
-    const catId = categoryId;
 
-    //products
-    const getProducts = () => {
-        return new Promise ( (resolve,reject)=>{
+    const getProducts = async () => {
+        const productCollection = collection(db, 'products') //con esto traigo la coleccion del firestore
+        const productsSnapshot = await getDocs(productCollection) //con esto traigo los documentos de esa coleccion
 
-            setTimeout( () => {
-                resolve(filterProductByCategoryId(mockProductos, catId))
-            },2000)
+        //console.log("productsSnapshop", productsSnapshot)
+
+        const productList = productsSnapshot.docs.map((doc)=>{
+            let product = doc.data()
+            product.id = doc.id
+            //console.log("Product: ", product)
+            return product
+        })
+
+        //console.log("productsList", productList)
+        return productList
+    }
+
+    const getProductsAndCategories = ()=>{
+        getProducts()
+        .then( (data) =>{
+            setLoading(false)
+            //console.log("typeof categoryId: ", typeof categoryId)
+            if (typeof categoryId === 'undefined') {
+                //console.log ("data con category undefined: ", data)
+                setProducts(data)
+            }else{ 
+                
+                filterProductByCategoryId(data,categoryId)
+                //console.log ("data con category: ", data)
+            }
         })
     }
 
     const filterProductByCategoryId = (array, catId) => {
+         //console.log ("Entro al filterProduct")
+         //console.log("CategoryID: ", catId)
         
-        if (typeof catId === 'undefined'){
-            //si no recibe categoryId, muestra todos
-            return array;
-        }else{
-            //si recibe categoryId, filtra por esa categoría
-            let arr = array.filter( (prod) => {
-                return prod.categoryId==catId
-            })
-            
-            return arr;
-        }
-    }
-
-    //category
-    const getCategories = (catId) => {
-        return new Promise ( (resolve,reject)=>{
-                resolve(filterCategoryById(mockCategories,categoryId))
+        let arr = array.filter( (prod) => {
+            return prod.categoryId==catId
         })
-    }
-
-    const filterCategoryById = (arrayCat, catId) => {
-        if (typeof categoryId === 'undefined'){
-            //si no recibe categoryId, muestra todos
-            return setCategory({
-                id: 0,
-                name: 'Productos'
-            });
-        }else{
-
-            let arr = arrayCat.filter( (cat) => {
-                return cat.id==catId
-            })
-            //console.log(arr[0])
-            return setCategory(arr[0])
-        }
+        setProducts(arr)
     }
 
     //esto se ejecuta después que se renderiza
@@ -80,26 +77,19 @@ const ListProducts = () => {
 
     },[])
 
+    //esto se ejecuta cada vez que cambia el categoryID
     useEffect(  ()=>{
+        setLoading(true)
         getProductsAndCategories();
         
-    },[products])
+    },[categoryId])
 
-    const getProductsAndCategories = ()=>{
-        getProducts()
-        .then( (data) =>{
-            setLoading(false)
-            setProducts(data)
-        })
-
-        getCategories()
-    }
+    
 
     return(
         <Container>
             <div className="container-cards">
                
-                
                 {loading?
                     (
                         <div>

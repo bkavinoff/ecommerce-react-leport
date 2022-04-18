@@ -6,21 +6,33 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+
 //componentes
-import mockCategories from '../Data/Categories'
+//import mockCategories from '../Data/Categories'
+
+//firebase:
+import db from '../../firebase'
+import { collection, getDocs} from 'firebase/firestore'
 
 
 const MenuCategoriasNavbar = () => {
   const [categories, setCategories] = useState([])
 
-  const getCategories = () => {
-    return new Promise ( (resolve,reject)=>{
-        setTimeout( () => {
-            //console.log(mockCategories)
-            resolve(mockCategories)
-        },2000)
+  const getCategories = async () => {
+    const categoryCollection = collection(db, 'categories') //con esto traigo la coleccion del firestore
+    const categoriesSnapshot = await getDocs(categoryCollection) //con esto traigo los documentos de esa coleccion
+
+    //console.log("categoriesSnapshot", categoriesSnapshot)
+
+    const categoriesList = categoriesSnapshot.docs.map((doc)=>{
+        let category = doc.data()
+        category.id = doc.id
+        //console.log("category: ", category)
+        return category
     })
-  }
+
+    return categoriesList
+}
 
   //esto se ejecuta después que se renderiza
   useEffect(  ()=>{
