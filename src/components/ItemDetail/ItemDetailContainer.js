@@ -30,8 +30,10 @@ const ItemDetailContainer = () => {
             console.log("No existe el documento con id: ", id)
             navigate('error')
         }
-        
-        return docSnap.data()
+        let snap = docSnap.data()
+        snap.id = id
+        //console.log("Product Data from DB: ", snap)
+        return snap
     }
 
     //esto se ejecuta una sola vez

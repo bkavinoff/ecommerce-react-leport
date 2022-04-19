@@ -63,7 +63,7 @@ const ItemDetail = ({product}, initial) => {
                                 </Item>
                                 <Item>
                                     <Link className='btnNavbar' to='/cart'>
-                                        <Button id="addToCart" size="small" variant="outlined" color="success" startIcon={<ShoppingBasketIcon />}>Finalizar Compra</Button>
+                                        <Button id="addToCart" size="small" variant="outlined" color="success" startIcon={<ShoppingBasketIcon />}>Ver Carrito</Button>
                                     </Link>
                                 </Item>
                             </Grid>
