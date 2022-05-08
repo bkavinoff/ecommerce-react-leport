@@ -54,7 +54,7 @@ export default function Card({data}){
                 <div>
                     <img className='imgProductCard' src={`/img/${image}`} alt={image} />
                 </div>
-                <h2>{title}</h2>
+                <h5>{title}</h5>
                 <p>Talle: {size}</p>
                 <p>Precio: $ {price}</p>
                 <p>Stock: {newStock}</p>

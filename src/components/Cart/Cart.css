@@ -1,3 +1,23 @@
 .cartProductImage{
     width: 110px;
 }
+
+.spanEmailVerification{
+    color:rgb(185, 11, 11);
+    font-weight: bold;
+}
+
+.containerBtnSendOrder{
+    width: max-content;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+}
+
+.btnSendOrderPopup{
+    margin:5px;
+}
+
+.inputSendOrder{
+    margin:5px;
+}

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import LinearProgress from '@mui/material/LinearProgress';
 
 //componentes:
-import mockProductos from '../Data/Data'
 import ItemDetail from './ItemDetail'
 
 //firebase:
@@ -27,12 +26,10 @@ const ItemDetailContainer = () => {
         const docSnap = await getDoc(docRef)
 
         if (!docSnap.exists()){
-            console.log("No existe el documento con id: ", id)
             navigate('error')
         }
         let snap = docSnap.data()
         snap.id = id
-        //console.log("Product Data from DB: ", snap)
         return snap
     }
 

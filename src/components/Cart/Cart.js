@@ -4,12 +4,16 @@ import {useNavigate} from 'react-router-dom'
 //MUI:
 import { fabClasses, MenuItem } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
+import RemoveShoppingCartRoundedIcon from '@mui/icons-material/RemoveShoppingCartRounded';
+import ShoppingCartCheckoutRoundedIcon from '@mui/icons-material/ShoppingCartCheckoutRounded';
 import Container from '@mui/material/Container'
 import Button from "@mui/material/Button";
 import { styled } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+
 
 //css
 import './Cart.css'
@@ -29,7 +33,9 @@ const Cart = () => {
     const {lightTheme} = useContext(ThemeContext)
     const {cart, removeItemFromCart, clearCart, totalPrice} = useContext(CartContext)
     const [openModal, setOpenModal] = useState(false)
+    const [validForm, setValidForm] = useState(true)
     const [successOrder, setSuccessOrder] = useState()
+    const [email2State, setEmail2State] = useState('')
     const [userValues, setUserValues] = useState(
         {
             name:'',
@@ -48,16 +54,13 @@ const Cart = () => {
     const handleItemClick = (e) =>{
         e.preventDefault()
         e.stopPropagation()
-        //console.log("Click en Item")
     }
     const handleEmptyCart = (e) =>{
         e.stopPropagation()
-        //console.log("Click en EmptyCart")
         clearCart()
     }
     const handleDeleteClick = (id) => (e) =>{
         e.stopPropagation()
-        //console.log("Click en Delete", id)
         removeItemFromCart(id)
     }
 
@@ -65,7 +68,6 @@ const Cart = () => {
         e.stopPropagation()
         e.preventDefault()
         setOpenModal(true)
-        //console.log("Click en CreateOrder")
     }
 
     const getLightColorButton = (theme) => {
@@ -93,6 +95,7 @@ const Cart = () => {
     const ColorButton = styled(Button)(({ theme }) => (
         (lightTheme)?getLightColorButton(theme):getDarkColorButton(theme)
     ));
+
     const navigate = useNavigate();
 
     const changePage = ()=>{
@@ -102,7 +105,6 @@ const Cart = () => {
     
 
     const resetForm = (e)=>{
-        console.log("Limpieza de form")
         setUserValues({
             name:'',
             email:'',
@@ -110,25 +112,34 @@ const Cart = () => {
        })
      }
 
+    const handleChangeEmail2 = (e) => {
+        let email2 = (email2State!=''  ?  email2State  :  '')
+        email2 = e.target.value
+        setEmail2State(email2)
+        if (email2 === userValues.email){
+            setValidForm(true)
+        }else{
+            setValidForm(false)
+        }
+    }
+
     const handleChange = (e)=>{
         let obj = {
             name:(userValues.name!=''?userValues.name:''),
             email:(userValues.email!=''?userValues.email:''),
             phone:(userValues.contactMphoneessage!=''?userValues.phone:'')
         }
+        
 
         switch (e.target.name){
           case "name":{
             obj.name=e.target.value
-            console.log("desde username: ", e.target.value)
             break}
           case "email":{
             obj.email=e.target.value
-            console.log("desde email", e.target.value)
             break}
           case "phone":{
             obj.phone=e.target.value
-            console.log("desde phone", e.target.value)
             break}
         }
         
@@ -140,25 +151,27 @@ const Cart = () => {
     const pushOrder = async(prevOrder) => {
         const collectionFirebase = collection(db, 'orders')
         const orderDoc = await addDoc(collectionFirebase, prevOrder)
-        console.log("Orden Generada, ID: ", orderDoc.id)
         setSuccessOrder(orderDoc.id)
+    }
+
+    const checkValidForm = () => {
+        if (validForm)
+        {            
+            let prevOrder = {...order,
+                            buyer:userValues}
+
+            //seteo la orden con los datos del comprador
+            setOrder({...order,
+                buyer: userValues})
+            
+            pushOrder(prevOrder)
+        } 
     }
 
     const handleSubmit = (e)=>{
         e.preventDefault()
-        console.log("Envio de form")
-        
-        let prevOrder = {...order,
-                        buyer:userValues}
-        //seteo la orden con los datos del comprador
-        setOrder({...order,
-            buyer: userValues})
-        
-        pushOrder(prevOrder)
-        alert("Envío de formulario")
+        checkValidForm()
     }
-
-
 
     return (
         <Container>
@@ -177,7 +190,7 @@ const Cart = () => {
                                     <p>{product.title}</p>
                                     <span>Valor Unitario: ${product.price}</span>
                                     <p>Cantidad: {product.qty}</p>
-                                    <p>Subtotal: {(product.qty * product.price)}</p>
+                                    <p>Subtotal: ${(product.qty * product.price)}</p>
                                 </div>
                                 <div>
                                     <DeleteIcon id={product.id} onClick={handleDeleteClick(product.id)}/>
@@ -186,9 +199,15 @@ const Cart = () => {
                         )
                     })}
                     
-                    <p>Total: {totalPrice}</p>
-                    <ColorButton onClick={handleEmptyCart} variant="outlined" >Vaciar carrito</ColorButton>
-                    <ColorButton onClick={handleCreateOrder} variant="outlined" >Finalizar compra</ColorButton>
+                    <p>Total: ${totalPrice}</p>
+                    <div className='containerBtnSendOrder'>
+                        <div className='inputSendOrder' >
+                            <ColorButton onClick={handleEmptyCart} variant="outlined"  startIcon={<RemoveShoppingCartRoundedIcon />}>Vaciar carrito</ColorButton>
+                        </div>
+                        <div className='inputSendOrder' >
+                            <ColorButton onClick={handleCreateOrder} variant="outlined" startIcon={<ShoppingCartCheckoutRoundedIcon />}>Finalizar compra</ColorButton>
+                        </div>
+                    </div>
                 </div>
             ) 
             :
@@ -197,10 +216,10 @@ const Cart = () => {
             </div>
             }
 
-            <div>
-                <ColorButton onClick={changePage} variant="outlined" >Seguir Comprando</ColorButton>
+            <div className='inputSendOrder' >
+                <ColorButton onClick={changePage} variant="outlined" startIcon={<ArrowBackIosNewRoundedIcon />}>Seguir Comprando</ColorButton>
             </div>
-            { console.log("Order: ",order) }
+            
             <ModalCustom handleClose={()=>setOpenModal(false)} open={openModal}>
                 <Container>
                     
@@ -214,7 +233,7 @@ const Cart = () => {
                         :
                         (
                             <div>
-                                <h2>FORM USUARIO</h2>
+                                <h2>Datos del Cliente</h2>
                                 <Box
                                 component="form"
                                 sx={{
@@ -224,20 +243,37 @@ const Cart = () => {
                                 autoComplete="off"
                                 onSubmit={handleSubmit} 
                                 >
+                                <div className='containerBtnSendOrder'>
+                                    <div className='inputSendOrder' >
+                                        <TextField onChange={handleChange} value={userValues.name} name="name" id="name" label="Nombre y Apellido" variant="outlined" />
+                                    </div>
+                                    <div className='inputSendOrder' >
+                                        <TextField onChange={handleChange} value={userValues.phone} name="phone" id="phone" label="Teléfono" variant="outlined" inputProps={{ inputMode: 'numeric'}}/>
+                                    </div>
+                                    <div className='inputSendOrder' >
+                                        <TextField onChange={handleChange} value={userValues.email} name="email" id="email" label="Email" variant="outlined" />
+                                    </div>
+                                    <div className='inputSendOrder' >
+                                        <TextField onChange={handleChangeEmail2} value={email2State} name="email2" id="email2" label="Confirme email" variant="outlined" />
+                                    </div>
+                                </div>
+
+                                <div>
+                                {!validForm?
+                                    <span className='spanEmailVerification'>El email no coincide</span>
+                                :
+                                    <span></span>
+                                }
+                                </div>
                                 
-                                <TextField onChange={handleChange} value={userValues.name} name="name" id="name" label="Nombre y Apellido" variant="outlined" />
-                                <TextField onChange={handleChange} value={userValues.email} name="email" id="email" label="Email" variant="outlined" />
-                                <TextField onChange={handleChange} value={userValues.phone} name="phone" id="phone" label="Teléfono" variant="outlined" inputProps={{ inputMode: 'numeric'}}/>
-                                
-                                <Container>
-                                    <Button onClick={resetForm} variant="contained" color="success">Limpiar</Button>
-                                    <Button type="submit" variant="contained" color="success">Enviar</Button>
-                                </Container>
+                                <div className='containerBtnSendOrder'>
+                                    <Button className='btnSendOrderPopup' onClick={resetForm} variant="contained" color="success">Limpiar</Button>
+                                    <Button className='btnSendOrderPopup' type="submit" variant="contained" color="success">Enviar</Button>
+                                </div>
                                 </Box>
                             </div>
                         )
                     }
-                    
                 </Container>
             </ModalCustom>
         </Container>

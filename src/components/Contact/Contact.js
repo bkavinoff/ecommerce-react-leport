@@ -5,18 +5,16 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
-import Container from '@mui/material/Container';
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import PlaylistRemoveRoundedIcon from '@mui/icons-material/PlaylistRemoveRounded';
+import Container from '@mui/material/Container'
+import FormControl from '@mui/material/FormControl';
 
 //css
 import './Contact.css'
 
 const ContactUs = ()=>{
 
-  
-    //const handleClick = (e)=>{
-      // console.log("Evento Sintetico: ", e )
-      // console.log("Evento Nativo: ", e.nativeEvent )
-    //}
     const contact = [
         {
           id: 1,
@@ -46,13 +44,10 @@ const ContactUs = ()=>{
 
       const handleSubmit = (e)=>{
         e.preventDefault()
-        console.log("Envio de form")
-        console.log(contactValue)
-        alert("Envío de formulario")
+        alert("Formulario enviado.")
       }
 
       const resetForm = (e)=>{
-         console.log("Limpieza de form")
          setcontactValue({
           contactUsername:'',
           contactEmail:'',
@@ -72,30 +67,22 @@ const ContactUs = ()=>{
         switch (e.target.name){
           case "contactUsername":{
             obj.contactUsername=e.target.value
-            console.log("desde username: ", e.target.value)
             break}
           case "contactEmail":{
             obj.contactEmail=e.target.value
-            console.log("desde email", e.target.value)
             break}
           case "contactMotive":{
               obj.contactMotive=e.target.value
-              console.log("desde motive", e.target.value)
               break}
           case "contactMessage":{
             obj.contactMessage=e.target.value
-            console.log("desde message", e.target.value)
             break}
         }
         
         setcontactValue(
           contactValue => (obj)
         )
-
-        //console.log(obj)
       }
-
-      
 
     return(
         <Box
@@ -125,14 +112,22 @@ const ContactUs = ()=>{
             </MenuItem>
           ))}
         </TextField>
-        <TextField className="txtMessage" onChange={handleChange} value={contactValue.contactMessage} name="contactMessage" id="contactMessage" label="Mensaje" variant="outlined" multiline maxRows={10} />
-        <Container>
-          <Button onClick={resetForm} variant="contained" color="success">Limpiar</Button>
-          <Button type="submit" variant="contained" color="success">Enviar</Button>
-        </Container>
+
+        <div className='secondRowContainer'>
+          <div className="txtMessage" >
+              <TextField onChange={handleChange} value={contactValue.contactMessage} name="contactMessage" id="contactMessage" label="Mensaje" variant="outlined" multiline maxRows={10} />
+          </div>
+         
+          <div className='containerBtnContact'>
+            <div classname = 'btnContact'>
+              <Button onClick={resetForm} variant="contained" color="success"  startIcon={<PlaylistRemoveRoundedIcon />}>Limpiar</Button>
+            </div>
+            <div classname = 'btnContact'>
+              <Button classname = 'btnContact' type="submit" variant="contained" color="success"  startIcon={<SendRoundedIcon />}>Enviar</Button>
+            </div>
+          </div>
+        </div>
       </Box>
-      
-        
     )
 }
 export default ContactUs

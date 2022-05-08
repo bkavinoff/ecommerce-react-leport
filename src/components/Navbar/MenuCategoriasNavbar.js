@@ -22,12 +22,10 @@ const MenuCategoriasNavbar = () => {
     const categoryCollection = collection(db, 'categories') //con esto traigo la coleccion del firestore
     const categoriesSnapshot = await getDocs(categoryCollection) //con esto traigo los documentos de esa coleccion
 
-    //console.log("categoriesSnapshot", categoriesSnapshot)
 
     const categoriesList = categoriesSnapshot.docs.map((doc)=>{
         let category = doc.data()
         category.id = doc.id
-        //console.log("category: ", category)
         return category
     })
 

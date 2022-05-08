@@ -2,10 +2,15 @@
 
 //componentes
 import ItemListContainer from '../ItemListContainer/ItemListContainer'
+//Componentes
+import CarouselComponent from '../Carousel/Carousel'
 
 const HomePage = () => {
     return (
-          <ItemListContainer category='undefined'/>
+        <>
+            <CarouselComponent />
+            <ItemListContainer category='undefined'/>
+        </>
     )
 }
 

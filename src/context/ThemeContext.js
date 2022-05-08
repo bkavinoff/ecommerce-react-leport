@@ -7,8 +7,8 @@ const ThemeProvider = ({children}) => {
 
     const handleTheme = ()=>{
         setLightTheme(!lightTheme)
-        console.log("Funcion desde contexto")
     }
+    
     const data = {
         lightTheme,
         handleTheme

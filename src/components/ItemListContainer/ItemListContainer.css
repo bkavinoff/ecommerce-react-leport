@@ -4,8 +4,8 @@
 }
 
 .productContainer{
-    display:block;
-    align-items: space-around;
+    display: inline-flex;
+    flex-wrap: wrap;
 }
 
 .itemCard{

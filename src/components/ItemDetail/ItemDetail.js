@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from "@mui/material/Button";
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import { green } from '@mui/material/colors';
 
 
 //componentes:
@@ -19,14 +20,42 @@ import ItemCount from '../ItemCount/ItemCount';
 
 //context:
 import CartContext from '../../context/CartContext';
+import ThemeContext from '../../context/ThemeContext'
 
 const ItemDetail = ({product}, initial) => {
     const {image, title, size, price, stock, id} = product;
-    const {addProductToCart} = useContext(CartContext) //se debe aclarar que contexto se usa
+    const {addProductToCart} = useContext(CartContext)
+    const {lightTheme} = useContext(ThemeContext)
 
     const onAdd = (qty)=>{
         addProductToCart(product, qty)
     }
+
+    const getLightColorButton = (theme) => {
+        return ({
+            color: theme.palette.getContrastText(green[100]),
+            backgroundColor: green[100],
+            '&:hover': {
+              backgroundColor: green[200],
+            },
+            borderColor: green[400]
+        })
+    }
+
+    const getDarkColorButton = (theme) => {
+        return ({
+            color: theme.palette.getContrastText(green[700]),
+            backgroundColor: green[700],
+            '&:hover': {
+              backgroundColor: green[500],
+            },
+            borderColor: green[900]
+        })
+    }
+
+    const ColorButton = styled(Button)(({ theme }) => (
+        (lightTheme)?getLightColorButton(theme):getDarkColorButton(theme)
+    )); 
 
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -35,10 +64,6 @@ const ItemDetail = ({product}, initial) => {
         textAlign: 'center',
         color: theme.palette.text.secondary,
       }));
-    
-    //   const handleAddToCartClick = (e) => {
-    //     e.preventDefault()
-    //   }
 
     return(
         <Container>
@@ -63,7 +88,7 @@ const ItemDetail = ({product}, initial) => {
                                 </Item>
                                 <Item>
                                     <Link className='btnNavbar' to='/cart'>
-                                        <Button id="addToCart" size="small" variant="outlined" color="success" startIcon={<ShoppingBasketIcon />}>Ver Carrito</Button>
+                                        <ColorButton id="addToCart" size="small" variant="outlined" color="success" startIcon={<ShoppingBasketIcon />}>Ver Carrito</ColorButton>
                                     </Link>
                                 </Item>
                             </Grid>
